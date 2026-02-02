@@ -12,8 +12,15 @@ SERVER_DIR="/home/html/os_home/dist"
 ACTION="push"
 
 # 解析命令行参数
-while getopts "sp" opt; do
+while getopts "hsp" opt; do
     case $opt in
+        h)
+            echo "用法: $0 [-h] [-s] [-p]"
+            echo "  -h: 显示此帮助信息"
+            echo "  -s: 仅保存到git"
+            echo "  -p: 保存并推送到服务器（默认）"
+            exit 0
+            ;;
         s)
             ACTION="save"
             ;;
@@ -21,7 +28,8 @@ while getopts "sp" opt; do
             ACTION="push"
             ;;
         *)
-            echo "用法: $0 [-s] [-p]"
+            echo "用法: $0 [-h] [-s] [-p]"
+            echo "  -h: 显示此帮助信息"
             echo "  -s: 仅保存到git"
             echo "  -p: 保存并推送到服务器（默认）"
             exit 1
