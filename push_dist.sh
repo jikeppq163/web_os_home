@@ -15,10 +15,11 @@ ACTION="push"
 while getopts "hsp" opt; do
     case $opt in
         h)
-            echo "用法: $0 [-h] [-s] [-p]"
+            echo "用法: $0 [-h] [-s] [-p] [提交信息]"
             echo "  -h: 显示此帮助信息"
             echo "  -s: 仅保存到git"
             echo "  -p: 保存并推送到服务器（默认）"
+            echo "  [提交信息]: 可选，Git提交时使用的自定义信息"
             exit 0
             ;;
         s)
@@ -28,14 +29,22 @@ while getopts "hsp" opt; do
             ACTION="push"
             ;;
         *)
-            echo "用法: $0 [-h] [-s] [-p]"
+            echo "用法: $0 [-h] [-s] [-p] [提交信息]"
             echo "  -h: 显示此帮助信息"
             echo "  -s: 仅保存到git"
             echo "  -p: 保存并推送到服务器（默认）"
+            echo "  [提交信息]: 可选，Git提交时使用的自定义信息"
             exit 1
             ;;
     esac
 done
+
+# 获取提交信息（如果提供）
+shift $((OPTIND - 1))
+COMMIT_MESSAGE="feat: 更新构建产物"
+if [ $# -gt 0 ]; then
+    COMMIT_MESSAGE="$@"
+fi
 
 # Git保存函数
 git_save() {
@@ -57,7 +66,7 @@ git_save() {
     fi
     
     # 提交更改
-    git commit -m "feat: 更新构建产物"
+    git commit -m "$COMMIT_MESSAGE"
     
     # 检查提交是否成功
     if [ $? -ne 0 ]; then
