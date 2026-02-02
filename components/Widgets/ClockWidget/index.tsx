@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
+import { zhCN } from 'date-fns/locale';
 
 const ClockWidget: React.FC<{ className?: string }> = ({ className }) => {
     const [time, setTime] = useState(new Date());
@@ -15,7 +16,7 @@ const ClockWidget: React.FC<{ className?: string }> = ({ className }) => {
                 {format(time, 'HH:mm')}
              </span>
              <span className="text-base md:text-lg lg:text-xl font-light opacity-80 mt-2">
-                {format(time, 'MMMM do')}
+                {format(time, 'MMMM do', { locale: zhCN })}
              </span>
         </div>
     );

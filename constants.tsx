@@ -49,7 +49,7 @@ export const APPS: AppConfig[] = [
     url: 'mailto:',
     icon: <Mail color="white" size={32} />,
     color: 'from-blue-500 to-cyan-500',
-    isDock: true
+    isDock: false
   },
   {
     id: 'photos',
