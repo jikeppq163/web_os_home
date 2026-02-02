@@ -23,8 +23,6 @@ const LOAN_CALCULATOR: AppConfig = {
   requiresPassword: false
 };
 
-export const WALLPAPER_URL = "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop";
-
 export const APPS: AppConfig[] = [
   LOAN_CALCULATOR,
   {
