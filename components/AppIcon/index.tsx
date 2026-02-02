@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppConfig } from '../types';
+import { AppConfig } from '@/types';
 
 interface AppIconProps {
   app: AppConfig;

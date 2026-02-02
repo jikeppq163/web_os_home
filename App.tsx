@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import StatusBar from './components/StatusBar';
-import Dock from './components/Dock';
-import Background from './components/Background';
-import Desktop from './components/Desktop';
-import PasswordModal from './components/PasswordModal';
-import ProxyBrowser from './components/ProxyBrowser';
-import { APPS } from './constants';
-import { AppConfig } from './types';
+import StatusBar from '@/components/StatusBar';
+import Dock from '@/components/Dock';
+import Background from '@/components/Background';
+import Desktop from '@/components/Desktop';
+import PasswordModal from '@/components/PasswordModal';
+import ProxyBrowser from '@/components/ProxyBrowser';
+import { APPS } from '@/constants';
+import { AppConfig } from '@/types';
 
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);

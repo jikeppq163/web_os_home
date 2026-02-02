@@ -1,9 +1,9 @@
 import React from 'react';
-import AppIcon from './AppIcon';
-import CalendarWidget from './Widgets/CalendarWidget';
-import WeatherWidget from './Widgets/WeatherWidget';
-import ClockWidget from './Widgets/ClockWidget';
-import { AppConfig } from '../types';
+import AppIcon from '@/components/AppIcon';
+import CalendarWidget from '@/components/Widgets/CalendarWidget';
+import WeatherWidget from '@/components/Widgets/WeatherWidget';
+import ClockWidget from '@/components/Widgets/ClockWidget';
+import { AppConfig } from '@/types';
 
 interface DesktopProps {
   desktopApps: AppConfig[];

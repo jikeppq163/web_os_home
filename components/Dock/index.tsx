@@ -1,6 +1,6 @@
 import React from 'react';
-import { AppConfig } from '../types';
-import AppIcon from './AppIcon';
+import { AppConfig } from '@/types';
+import AppIcon from '@/components/AppIcon';
 
 interface DockProps {
   apps: AppConfig[];

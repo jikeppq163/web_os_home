@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, ShieldCheck, RotateCw, Globe } from 'lucide-react';
-import { AppConfig } from '../types';
+import { AppConfig } from '@/types';
 
 interface ProxyBrowserProps {
   isOpen: boolean;
