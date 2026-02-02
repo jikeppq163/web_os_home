@@ -8,6 +8,7 @@ export interface AppConfig {
   color: string;
   isDock?: boolean;
   useVPN?: boolean;
+  requiresPassword?: boolean;
 }
 
 export interface WidgetProps {

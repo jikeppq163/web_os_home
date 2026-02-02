@@ -15,28 +15,35 @@ const ProxyBrowser: React.FC<ProxyBrowserProps> = ({ isOpen, app, onClose }) => 
 
   return (
     <div className="fixed inset-0 z-[60] flex flex-col bg-slate-50">
-      {/* Browser Toolbar */}
-      <div className="bg-slate-100 border-b border-slate-200 px-4 py-2 flex items-center justify-between shadow-sm pt-safe-top">
-        <button 
-          onClick={onClose}
-          className="p-2 hover:bg-slate-200 rounded-full transition-colors"
-        >
-          <X size={24} className="text-slate-600" />
-        </button>
-
-        {/* Address Bar */}
-        <div className="flex-1 max-w-xl mx-4 bg-white rounded-xl h-10 flex items-center px-3 gap-2 shadow-sm border border-slate-200">
-          <ShieldCheck size={14} className="text-green-500" />
-          <span className="text-xs font-semibold text-green-600 bg-green-50 px-1.5 py-0.5 rounded">APP</span>
-          <div className="h-4 w-[1px] bg-slate-200 mx-1" />
-          <span className="text-sm text-slate-600 truncate flex-1">{app.url}</span>
-          <RotateCw 
-            size={14} 
-            className={`text-slate-400 ${isLoading ? 'animate-spin' : ''}`} 
-          />
+      {/* MAC Style Window Title Bar */}
+      <div className="bg-slate-100 border-b border-slate-200 px-4 py-2 flex items-center shadow-sm pt-safe-top">
+        {/* MAC Window Controls */}
+        <div className="flex items-center gap-2 mr-4">
+          <button 
+            onClick={onClose}
+            className="w-3 h-3 rounded-full bg-red-400 hover:bg-red-500 transition-colors"
+          >
+          </button>
+          <div className="w-3 h-3 rounded-full bg-yellow-400" >
+          </div>
+          <div className="w-3 h-3 rounded-full bg-green-400" />
         </div>
 
-        <div className="w-10" /> {/* Spacer for balance */}
+        {/* Window Title */}
+        <div className="flex-1 flex items-center justify-center">
+          <div className="flex items-center gap-2">
+            <ShieldCheck size={14} className="text-green-500" />
+            <span className="text-sm font-semibold text-slate-700 truncate">{app.name}</span>
+            {isLoading && (
+              <RotateCw 
+                size={14} 
+                className="text-slate-400 animate-spin ml-2" 
+              />
+            )}
+          </div>
+        </div>
+
+        <div className="w-16" /> {/* Spacer for balance */}
       </div>
 
       {/* Content Area */}

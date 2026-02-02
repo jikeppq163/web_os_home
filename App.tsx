@@ -31,8 +31,10 @@ const App: React.FC = () => {
   const handleAppClick = (app: AppConfig) => {
     if (app.useVPN) {
         setActiveApp(app);
-        if (isAuthenticated) {
-            // Already authenticated, skip password
+        // Check if the app requires password
+        const needsPassword = app.requiresPassword ?? false;
+        if (isAuthenticated || !needsPassword) {
+            // Already authenticated or app doesn't require password, skip password
             setShowBrowser(true);
         } else {
             // Start auth flow
@@ -61,11 +63,8 @@ const App: React.FC = () => {
 
   return (
     <div 
-      className="relative w-screen h-screen bg-cover bg-center overflow-hidden transition-opacity duration-1000 ease-in-out"
-      style={{ 
-        backgroundImage: `url(${WALLPAPER_URL})`,
-        opacity: isLoaded ? 1 : 0
-      }}
+      className={`relative w-screen h-screen bg-cover bg-center overflow-hidden transition-opacity duration-1000 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+      style={{ backgroundImage: `url(${WALLPAPER_URL})` }}
     >
       {/* Dark Overlay for better contrast */}
       <div className="absolute inset-0 bg-black/10 pointer-events-none" />

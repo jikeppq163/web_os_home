@@ -19,7 +19,8 @@ const LOAN_CALCULATOR: AppConfig = {
   icon: <Calculator color="white" size={32} />,
   color: 'from-orange-400 to-orange-600',
   isDock: false,
-  useVPN: false
+  useVPN: true,
+  requiresPassword: false
 };
 
 export const WALLPAPER_URL = "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop";
@@ -33,7 +34,8 @@ export const APPS: AppConfig[] = [
     icon: <Github color="white" size={32} />,
     color: 'from-gray-700 to-gray-900',
     isDock: true,
-    useVPN: false
+    useVPN: true,
+    requiresPassword: true
   },
   {
     id: 'browser',

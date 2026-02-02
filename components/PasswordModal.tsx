@@ -29,8 +29,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpen, onSuccess, onCanc
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-md flex items-center justify-center p-4">
       <div 
-        className={`bg-white/80 backdrop-blur-xl rounded-[2rem] p-8 w-full max-w-sm shadow-2xl transform transition-transform duration-200 ${error ? 'animate-[shake_0.5s_ease-in-out]' : ''}`}
-        style={{ animation: error ? 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both' : 'none' }}
+        className={`bg-white/80 backdrop-blur-xl rounded-[2rem] p-8 w-full max-w-sm shadow-2xl transform transition-transform duration-200 ${error ? 'animate-shake' : ''}`}
       >
         <div className="flex flex-col items-center gap-6">
           <div className="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center">
