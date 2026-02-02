@@ -9,7 +9,7 @@ interface DockProps {
 
 const Dock: React.FC<DockProps> = ({ apps, onAppClick }) => {
   return (
-    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-auto max-w-[95%] md:max-w-[90%] z-40">
+    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-auto max-w-[95%] md:max-w-[90%] z-40">
         <div className="bg-white/20 backdrop-blur-2xl border border-white/20 px-3 py-3 md:px-6 md:py-4 rounded-[1.5rem] md:rounded-[2rem] flex items-end gap-3 md:gap-6 shadow-2xl transition-all hover:bg-white/30 overflow-x-auto no-scrollbar">
             {apps.map((app) => (
                 <div key={app.id} className="relative group shrink-0">

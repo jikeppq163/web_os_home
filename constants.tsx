@@ -7,20 +7,19 @@ import {
   Music, 
   Image as ImageIcon, 
   Settings, 
-  Terminal,
-  Youtube,
-  Twitter
+  Terminal
 } from 'lucide-react';
 import { AppConfig } from './types';
 
 // The specific app requested by the user
 const LOAN_CALCULATOR: AppConfig = {
   id: 'loan-calc',
-  name: '贷款计算器',
+  name: '贷款规划器',
   url: 'https://www.europlay.cn/AILoanCalculator/',
   icon: <Calculator color="white" size={32} />,
   color: 'from-orange-400 to-orange-600',
   isDock: false,
+  useVPN: false
 };
 
 export const WALLPAPER_URL = "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop";
@@ -34,7 +33,7 @@ export const APPS: AppConfig[] = [
     icon: <Github color="white" size={32} />,
     color: 'from-gray-700 to-gray-900',
     isDock: true,
-    useVPN: true
+    useVPN: false
   },
   {
     id: 'browser',
@@ -62,8 +61,8 @@ export const APPS: AppConfig[] = [
   },
   {
     id: 'music',
-    name: 'Music',
-    url: 'https://spotify.com',
+    name: '音乐',
+    url: 'https://music.163.com/#/playlist?id=717848220',
     icon: <Music color="white" size={32} />,
     color: 'from-red-400 to-pink-600',
     isDock: true
@@ -83,23 +82,5 @@ export const APPS: AppConfig[] = [
     icon: <Terminal color="white" size={32} />,
     color: 'from-emerald-400 to-emerald-600',
     isDock: false
-  },
-  {
-    id: 'youtube',
-    name: 'YouTube',
-    url: 'https://youtube.com',
-    icon: <Youtube color="white" size={32} />,
-    color: 'from-red-500 to-red-700',
-    isDock: false,
-    useVPN: true
-  },
-   {
-    id: 'twitter',
-    name: 'X',
-    url: 'https://twitter.com',
-    icon: <Twitter color="white" size={32} />,
-    color: 'from-black to-slate-800',
-    isDock: false,
-    useVPN: true
   }
 ];

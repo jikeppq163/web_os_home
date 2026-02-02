@@ -27,7 +27,7 @@ const ProxyBrowser: React.FC<ProxyBrowserProps> = ({ isOpen, app, onClose }) => 
         {/* Address Bar */}
         <div className="flex-1 max-w-xl mx-4 bg-white rounded-xl h-10 flex items-center px-3 gap-2 shadow-sm border border-slate-200">
           <ShieldCheck size={14} className="text-green-500" />
-          <span className="text-xs font-semibold text-green-600 bg-green-50 px-1.5 py-0.5 rounded">VPN PROXY</span>
+          <span className="text-xs font-semibold text-green-600 bg-green-50 px-1.5 py-0.5 rounded">APP</span>
           <div className="h-4 w-[1px] bg-slate-200 mx-1" />
           <span className="text-sm text-slate-600 truncate flex-1">{app.url}</span>
           <RotateCw 

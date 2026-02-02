@@ -105,7 +105,12 @@ const App: React.FC = () => {
       <Dock apps={dockApps} onAppClick={handleAppClick} />
       
       {/* Home Indicator */}
-      <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/40 rounded-full z-50 pointer-events-none" />
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/40 rounded-full z-50 pointer-events-none" />
+
+      {/* ICP License */}
+      <div className="absolute bottom-0 left-0 right-0 text-center text-white/60 text-xs z-50">
+        备案号:<a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">粤ICP备2024264292号</a>
+      </div>
 
       {/* Modals */}
       <PasswordModal 
