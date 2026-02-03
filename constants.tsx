@@ -32,7 +32,7 @@ export const APPS: AppConfig[] = [
     icon: <Github color="white" size={32} />,
     color: "from-gray-700 to-gray-900",
     isDock: true,
-    useVPN: true,
+    useVPN: false,
     requiresPassword: true,
   },
   {
