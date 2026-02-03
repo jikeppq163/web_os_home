@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
+import { getLunar } from 'chinese-lunar-calendar';
 
 const ClockWidget: React.FC<{ className?: string }> = ({ className }) => {
     const [time, setTime] = useState(new Date());
@@ -11,24 +12,8 @@ const ClockWidget: React.FC<{ className?: string }> = ({ className }) => {
     }, []);
 
     const getLunarDate = () => {
-      // 简化的农历计算函数
-      // 这里使用一个简单的算法来计算农历日期
-      // 注意：这只是一个简化的实现，可能不够准确
-      const year = time.getFullYear();
-      const month = time.getMonth() + 1;
-      const day = time.getDate();
-      
-      // 农历月份和日期的映射
-      // 这里使用一个简单的映射，实际应用中需要更复杂的算法
-      const lunarMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-      const lunarDays = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
-      
-      // 简单的计算：使用公历日期的月份和日期来索引农历月份和日期
-      // 注意：这只是一个示例，实际应用中需要更复杂的算法
-      const lunarMonth = lunarMonths[(month - 1) % 12];
-      const lunarDay = lunarDays[(day - 1) % lunarDays.length];
-      
-      return `${lunarMonth}月${lunarDay}`;
+      const lunar = getLunar(time.getFullYear(), time.getMonth() + 1, time.getDate());
+      return lunar.dateStr;
     };
 
     return (

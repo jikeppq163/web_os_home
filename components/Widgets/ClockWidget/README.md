@@ -2,14 +2,16 @@
 
 ## 组件说明
 
-ClockWidget 组件是 OS 模拟应用的时钟小部件，负责显示当前时间和日期。
+ClockWidget 组件是 OS 模拟应用的时钟小部件，负责显示当前时间、日期和农历日期。
 
 ## 功能特性
 
-- **时间显示**: 实时显示当前时间，精确到秒
-- **日期显示**: 显示当前日期和星期
+- **时间显示**: 实时显示当前时间，格式为 HH:mm
+- **日期显示**: 显示当前日期，使用中文格式
+- **农历显示**: 显示当前农历日期，使用专业的农历计算库确保准确性
 - **响应式设计**: 适配不同屏幕尺寸
 - **动画效果**: 平滑的时间更新动画
+- **美观的视觉效果**: 磨砂半透明背景，优雅的字体层次
 
 ## 组件结构
 
@@ -26,29 +28,35 @@ components/Widgets/ClockWidget/
 ```tsx
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
+import { zhCN } from 'date-fns/locale';
+import { getLunar } from 'chinese-lunar-calendar';
 
-interface ClockWidgetProps {
-  className?: string;
-}
+const ClockWidget: React.FC<{ className?: string }> = ({ className }) => {
+    const [time, setTime] = useState(new Date());
 
-const ClockWidget: React.FC<ClockWidgetProps> = ({ className }) => {
-  const [time, setTime] = useState(new Date());
+    useEffect(() => {
+      const timer = setInterval(() => setTime(new Date()), 1000);
+      return () => clearInterval(timer);
+    }, []);
 
-  useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
+    const getLunarDate = () => {
+      const lunar = getLunar(time.getFullYear(), time.getMonth() + 1, time.getDate());
+      return lunar.dateStr;
+    };
 
-  return (
-    <div className={`bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 flex flex-col justify-center items-center ${className}`}>
-      <div className="text-white text-4xl md:text-5xl font-bold mb-2">
-        {format(time, 'HH:mm:ss')}
-      </div>
-      <div className="text-white/80 text-sm">
-        {format(time, 'EEEE, MMMM d, yyyy')}
-      </div>
-    </div>
-  );
+    return (
+        <div className={`bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl p-4 md:p-6 shadow-lg flex flex-col justify-center items-center text-white relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 ${className}`}>
+             <span className="text-4xl md:text-5xl lg:text-6xl font-thin tracking-wider tabular-nums">
+                {format(time, 'HH:mm')}
+             </span>
+             <span className="text-base md:text-lg lg:text-xl font-light opacity-80 mt-2">
+                {format(time, 'MMMM do', { locale: zhCN })}
+             </span>
+             <span className="text-sm md:text-base font-light opacity-60 mt-1">
+                {getLunarDate()}
+             </span>
+        </div>
+    );
 };
 
 export default ClockWidget;
@@ -79,6 +87,12 @@ const Example: React.FC = () => {
 ```
 
 ## 历史记录
+
+### 2026-02-03
+- 修复农历显示问题：
+  - 替换了原来的简化农历计算实现
+  - 集成了专业的 `chinese-lunar-calendar` 库
+  - 确保农历日期的准确性
 
 ### 2026-02-02
 - 组件添加详细的说明文档
