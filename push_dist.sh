@@ -9,7 +9,7 @@ SERVER="GZ172"
 SERVER_DIR="/home/html/os_home/dist"
 # JP246服务器信息
 JP_SERVER="JP246"
-JP_SERVER_DIR="/home/os"
+JP_SERVER_DIR="/home/os/dist"
 
 # 默认行为：保存并推送到服务器
 ACTION="push"
