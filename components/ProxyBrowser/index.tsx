@@ -14,7 +14,7 @@ const ProxyBrowser: React.FC<ProxyBrowserProps> = ({ isOpen, app, onClose }) => 
   if (!isOpen || !app) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col bg-slate-50">
+    <div className="mt-8 fixed inset-0 z-[60] flex flex-col bg-slate-50">
       {/* MAC Style Window Title Bar */}
       <div className="bg-slate-100 border-b border-slate-200 px-4 py-2 flex items-center shadow-sm pt-safe-top">
         {/* MAC Window Controls */}
