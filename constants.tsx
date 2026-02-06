@@ -25,11 +25,11 @@ const LOAN_CALCULATOR: AppConfig = {
 
 const Open_CLAW_TOOLS: AppConfig = {
   id: "open-claw-tools",
-  name: "Open CLAW Tools",
+  name: "open claw",
   url: "https://lobe.europlay.cn",
   icon: <Calculator color="white" size={32} />,
   color: "from-orange-400 to-orange-600",
-  isDock: true,
+  isDock: false,
   useVPN: true,
   requiresPassword: false,
 };
