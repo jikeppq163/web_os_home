@@ -63,7 +63,7 @@ export const APPS: AppConfig[] = [
     url: "https://music.163.com/#/playlist?id=717848220",
     icon: <Music color="white" size={32} />,
     color: "from-red-400 to-pink-600",
-    isDock: true,
+    isDock: false,
     useVPN: true,
     requiresPassword: false,
   },
