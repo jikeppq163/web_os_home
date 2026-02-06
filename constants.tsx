@@ -58,14 +58,6 @@ export const APPS: AppConfig[] = [
     requiresPassword: true,
   },
   {
-    id: "mail",
-    name: "Mail",
-    url: "mailto:",
-    icon: <Mail color="white" size={32} />,
-    color: "from-blue-500 to-cyan-500",
-    isDock: false,
-  },
-  {
     id: "music",
     name: "音乐",
     url: "https://music.163.com/#/playlist?id=717848220",
@@ -81,6 +73,8 @@ export const APPS: AppConfig[] = [
     url: "#",
     icon: <Settings color="white" size={32} />,
     color: "from-gray-400 to-gray-600",
-    isDock: false,
+    isDock: true,
+    useVPN: true,
+    requiresPassword: true,
   }
 ];
