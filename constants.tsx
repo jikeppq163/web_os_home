@@ -30,7 +30,7 @@ const Open_CLAW_TOOLS: AppConfig = {
   icon: <Calculator color="white" size={32} />,
   color: "from-orange-400 to-orange-600",
   isDock: false,
-  useVPN: true,
+  useVPN: false,
   requiresPassword: false,
 };
 
