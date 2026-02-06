@@ -23,8 +23,20 @@ const LOAN_CALCULATOR: AppConfig = {
   requiresPassword: false,
 };
 
+const Open_CLAW_TOOLS: AppConfig = {
+  id: "open-claw-tools",
+  name: "Open CLAW Tools",
+  url: "https://lobe.europlay.cn",
+  icon: <Calculator color="white" size={32} />,
+  color: "from-orange-400 to-orange-600",
+  isDock: true,
+  useVPN: true,
+  requiresPassword: false,
+};
+
 export const APPS: AppConfig[] = [
   LOAN_CALCULATOR,
+  Open_CLAW_TOOLS,
   {
     id: "github",
     name: "GitHub",
@@ -54,20 +66,14 @@ export const APPS: AppConfig[] = [
     isDock: false,
   },
   {
-    id: "photos",
-    name: "Photos",
-    url: "https://unsplash.com",
-    icon: <ImageIcon color="white" size={32} />,
-    color: "from-purple-400 to-pink-500",
-    isDock: false,
-  },
-  {
     id: "music",
     name: "音乐",
     url: "https://music.163.com/#/playlist?id=717848220",
     icon: <Music color="white" size={32} />,
     color: "from-red-400 to-pink-600",
     isDock: true,
+    useVPN: true,
+    requiresPassword: false,
   },
   {
     id: "settings",
@@ -76,13 +82,5 @@ export const APPS: AppConfig[] = [
     icon: <Settings color="white" size={32} />,
     color: "from-gray-400 to-gray-600",
     isDock: false,
-  },
-  {
-    id: "blog",
-    name: "Blog",
-    url: "#",
-    icon: <Terminal color="white" size={32} />,
-    color: "from-emerald-400 to-emerald-600",
-    isDock: false,
-  },
+  }
 ];
