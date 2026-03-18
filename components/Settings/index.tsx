@@ -33,7 +33,7 @@ const Settings: React.FC = () => {
   useEffect(() => {
     const fetchApps = async () => {
       try {
-        const response = await fetch('http://localhost:5100/api/apps');
+        const response = await fetch('/api/apps');
         if (!response.ok) {
           throw new Error('Failed to fetch apps');
         }
@@ -57,7 +57,7 @@ const Settings: React.FC = () => {
     setSuccess(null);
 
     try {
-      const response = await fetch('http://localhost:5100/api/apps', {
+      const response = await fetch('/api/apps', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

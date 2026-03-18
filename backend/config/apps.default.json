@@ -1,0 +1,62 @@
+[
+    {
+        "id": "loan-calc",
+        "name": "贷款规划器",
+        "url": "https://www.europlay.cn/AILoanCalculator/",
+        "icon": "calculator",
+        "color": "from-orange-400 to-orange-600",
+        "isDock": false,
+        "useVPN": true,
+        "requiresPassword": false
+    },
+    {
+        "id": "open-claw-tools",
+        "name": "open claw",
+        "url": "http://lobe.europlay.cn",
+        "icon": "calculator",
+        "color": "from-orange-400 to-orange-600",
+        "isDock": false,
+        "useVPN": false,
+        "requiresPassword": false
+    },
+    {
+        "id": "github",
+        "name": "GitHub",
+        "url": "https://github.com",
+        "icon": "github",
+        "color": "from-gray-700 to-gray-900",
+        "isDock": true,
+        "useVPN": false,
+        "requiresPassword": true
+    },
+    {
+        "id": "browser",
+        "name": "Safari",
+        "url": "https://google.com",
+        "icon": "globe",
+        "color": "from-blue-400 to-blue-600",
+        "isDock": true,
+        "useVPN": true,
+        "requiresPassword": true
+    },
+    {
+        "id": "music",
+        "name": "音乐",
+        "url": "https://music.163.com/#/playlist?id=717848220",
+        "icon": "music",
+        "color": "from-red-400 to-pink-600",
+        "isDock": false,
+        "useVPN": true,
+        "requiresPassword": false
+    },
+    {
+        "id": "settings",
+        "name": "Settings",
+        "url": "#",
+        "icon": "settings",
+        "color": "from-gray-400 to-gray-600",
+        "isDock": true,
+        "useVPN": true,
+        "requiresPassword": true
+    }
+]

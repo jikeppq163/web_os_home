@@ -2,14 +2,18 @@
 
 # 项目根目录
 PROJECT_ROOT=$(pwd)
-# 构建输出目录
-BUILD_DIR="$PROJECT_ROOT/dist"
+# 前端构建输出目录
+FRONTEND_BUILD_DIR="$PROJECT_ROOT/dist"
+# 后端目录
+BACKEND_DIR="$PROJECT_ROOT/backend"
+# 后端构建输出目录
+BACKEND_BUILD_DIR="$BACKEND_DIR/dist"
 # 服务器信息
 SERVER="GZ172"
-SERVER_DIR="/home/html/os_home/dist"
+SERVER_DIR="/home/html/os_home"
 # JP246服务器信息
 JP_SERVER="JP246"
-JP_SERVER_DIR="/home/os/dist"
+JP_SERVER_DIR="/home/os"
 
 # 默认行为：保存并推送到服务器
 ACTION="push"
@@ -89,32 +93,78 @@ git_save() {
     echo "✅ Git保存成功"
 }
 
-# 构建函数
-build_project() {
-    echo "=== 开始构建项目 ==="
-    # 运行构建命令
+# 构建前端函数
+build_frontend() {
+    echo "=== 开始构建前端项目 ==="
+    # 运行前端构建命令
     npm run build
     
     # 检查构建是否成功
     if [ $? -ne 0 ]; then
-        echo "❌ 构建失败，请检查错误信息"
+        echo "❌ 前端构建失败，请检查错误信息"
         exit 1
     fi
     
     # 检查构建目录是否存在
-    if [ ! -d "$BUILD_DIR" ]; then
-        echo "❌ 构建目录不存在，构建可能失败"
+    if [ ! -d "$FRONTEND_BUILD_DIR" ]; then
+        echo "❌ 前端构建目录不存在，构建可能失败"
         exit 1
     fi
     
     # 检查构建目录是否有文件
-    if [ -z "$(ls -A "$BUILD_DIR")" ]; then
-        echo "❌ 构建目录为空，构建可能失败"
+    if [ -z "$(ls -A "$FRONTEND_BUILD_DIR")" ]; then
+        echo "❌ 前端构建目录为空，构建可能失败"
         exit 1
     fi
     
-    echo "✅ 构建成功，构建产物如下："
-    ls -la "$BUILD_DIR"
+    echo "✅ 前端构建成功，构建产物如下："
+    ls -la "$FRONTEND_BUILD_DIR"
+}
+
+# 构建后端函数
+build_backend() {
+    echo "=== 开始构建后端项目 ==="
+    
+    # 检查后端目录是否存在
+    if [ ! -d "$BACKEND_DIR" ]; then
+        echo "⚠️  后端目录不存在，跳过后端构建"
+        return 0
+    fi
+    
+    # 进入后端目录
+    cd "$BACKEND_DIR"
+    
+    # 检查是否有 package.json 文件
+    if [ -f "package.json" ]; then
+        # 运行后端构建命令
+        npm run build
+        
+        # 检查构建是否成功
+        if [ $? -ne 0 ]; then
+            echo "❌ 后端构建失败，请检查错误信息"
+            exit 1
+        fi
+        
+        # 检查构建目录是否存在
+        if [ ! -d "$BACKEND_BUILD_DIR" ]; then
+            echo "❌ 后端构建目录不存在，构建可能失败"
+            exit 1
+        fi
+        
+        # 检查构建目录是否有文件
+        if [ -z "$(ls -A "$BACKEND_BUILD_DIR")" ]; then
+            echo "❌ 后端构建目录为空，构建可能失败"
+            exit 1
+        fi
+        
+        echo "✅ 后端构建成功，构建产物如下："
+        ls -la "$BACKEND_BUILD_DIR"
+    else
+        echo "⚠️  后端目录中没有 package.json 文件，跳过后端构建"
+    fi
+    
+    # 回到项目根目录
+    cd "$PROJECT_ROOT"
 }
 
 # 推送函数
@@ -130,16 +180,26 @@ push_to_server() {
         CURRENT_SERVER_DIR="$SERVER_DIR"
     fi
     
-    # 使用 rsync 推送构建产物到服务器
-    # -avz: 归档模式，压缩传输
-    # --delete: 删除目标目录中不存在的文件
-    # --exclude: 排除不需要传输的文件
-    rsync -avz --delete "$BUILD_DIR/" "$CURRENT_SERVER:$CURRENT_SERVER_DIR/"
+    # 推送前端构建产物
+    echo "=== 推送前端构建产物 ==="
+    rsync -avz --delete "$FRONTEND_BUILD_DIR/" "$CURRENT_SERVER:$CURRENT_SERVER_DIR/dist/"
     
     # 检查推送是否成功
     if [ $? -ne 0 ]; then
-        echo "❌ 推送失败，请检查服务器连接和权限"
+        echo "❌ 前端推送失败，请检查服务器连接和权限"
         exit 1
+    fi
+    
+    # 推送后端构建产物（如果存在）
+    if [ -d "$BACKEND_BUILD_DIR" ] && [ -n "$(ls -A "$BACKEND_BUILD_DIR")" ]; then
+        echo "=== 推送后端构建产物 ==="
+        rsync -avz --delete "$BACKEND_BUILD_DIR/" "$CURRENT_SERVER:$CURRENT_SERVER_DIR/backend/"
+        
+        # 检查推送是否成功
+        if [ $? -ne 0 ]; then
+            echo "❌ 后端推送失败，请检查服务器连接和权限"
+            exit 1
+        fi
     fi
     
     echo "✅ 推送成功！构建产物已推送到 $CURRENT_SERVER:$CURRENT_SERVER_DIR"
@@ -152,7 +212,8 @@ case $ACTION in
         ;;
     push)
         git_save
-        build_project
+        build_frontend
+        build_backend
         push_to_server
         ;;
 esac
