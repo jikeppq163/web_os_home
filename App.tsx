@@ -5,7 +5,7 @@ import Background from '@/components/Background';
 import Desktop from '@/components/Desktop';
 import PasswordModal from '@/components/PasswordModal';
 import ProxyBrowser from '@/components/ProxyBrowser';
-import { APPS } from '@/constants';
+import { APPS, loadApps } from '@/constants';
 import { AppConfig } from '@/types';
 
 const App: React.FC = () => {
@@ -22,8 +22,14 @@ const App: React.FC = () => {
   const [showBrowser, setShowBrowser] = useState(false);
 
   useEffect(() => {
-    // Simulate boot up fade-in
-    setTimeout(() => setIsLoaded(true), 100);
+    // 加载后端配置
+    const init = async () => {
+      await loadApps();
+      // Simulate boot up fade-in
+      setTimeout(() => setIsLoaded(true), 100);
+    };
+    
+    init();
   }, []);
 
   const handleAppClick = (app: AppConfig) => {
