@@ -202,6 +202,18 @@ push_to_server() {
         fi
     fi
     
+    # 推送整个 backend 文件夹
+    if [ -d "$BACKEND_DIR" ]; then
+        echo "=== 推送整个 backend 文件夹 ==="
+        rsync -avz --delete "$BACKEND_DIR/" "$CURRENT_SERVER:$CURRENT_SERVER_DIR/backend/"
+        
+        # 检查推送是否成功
+        if [ $? -ne 0 ]; then
+            echo "❌ backend 文件夹推送失败，请检查服务器连接和权限"
+            exit 1
+        fi
+    fi
+    
     echo "✅ 推送成功！构建产物已推送到 $CURRENT_SERVER:$CURRENT_SERVER_DIR"
 }
 
