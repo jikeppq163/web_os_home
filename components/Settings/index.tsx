@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useApp } from '@/src/AppContext';
 
 interface App {
   id: string;
@@ -12,6 +13,7 @@ interface App {
 }
 
 const Settings: React.FC = () => {
+  const { reloadApps } = useApp();
   const [apps, setApps] = useState<App[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -71,6 +73,8 @@ const Settings: React.FC = () => {
 
       const data = await response.json();
       setSuccess(data.message || '配置更新成功');
+      // 重新加载应用配置，使首页更新
+      await reloadApps();
     } catch (err) {
       setError('更新应用配置失败');
       console.error(err);

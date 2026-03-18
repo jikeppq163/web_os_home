@@ -67,7 +67,7 @@ export const getDefaultApps = (): AppConfig[] => [
   },
   {
     id: "open-claw-tools",
-    name: "open claw",
+    name: "openclaw",
     url: "http://lobe.europlay.cn",
     icon: <Calculator color="white" size={32} />,
     color: "from-orange-400 to-orange-600",
@@ -83,16 +83,6 @@ export const getDefaultApps = (): AppConfig[] => [
     color: "from-gray-700 to-gray-900",
     isDock: true,
     useVPN: false,
-    requiresPassword: true,
-  },
-  {
-    id: "browser",
-    name: "Safari",
-    url: "https://google.com",
-    icon: <Globe color="white" size={32} />,
-    color: "from-blue-400 to-blue-600",
-    isDock: true,
-    useVPN: true,
     requiresPassword: true,
   },
   {
@@ -114,16 +104,6 @@ export const getDefaultApps = (): AppConfig[] => [
     isDock: true,
     useVPN: true,
     requiresPassword: true,
-  },
-  {
-    id: "note-app",
-    name: "记事本",
-    url: "#",
-    icon: <FileText color="white" size={32} />,
-    color: "from-green-400 to-green-600",
-    isDock: true,
-    useVPN: false,
-    requiresPassword: false,
   }
 ];
 

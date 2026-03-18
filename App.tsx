@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import StatusBar from '@/components/StatusBar';
 import Dock from '@/components/Dock';
 import Background from '@/components/Background';
@@ -6,11 +6,11 @@ import Desktop from '@/components/Desktop';
 import PasswordModal from '@/components/PasswordModal';
 import ProxyBrowser from '@/components/ProxyBrowser';
 import Settings from '@/components/Settings';
-import { APPS, loadApps } from '@/constants';
+import { AppProvider, useApp } from '@/src/AppContext';
 import { AppConfig } from '@/types';
 
-const App: React.FC = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+const AppContent: React.FC = () => {
+  const { apps, isLoaded } = useApp();
   const [activeApp, setActiveApp] = useState<AppConfig | null>(null);
   
   // Auth State - Lazy initialization from localStorage
@@ -21,17 +21,6 @@ const App: React.FC = () => {
   // UI States
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showBrowser, setShowBrowser] = useState(false);
-
-  useEffect(() => {
-    // 加载后端配置
-    const init = async () => {
-      await loadApps();
-      // Simulate boot up fade-in
-      setTimeout(() => setIsLoaded(true), 100);
-    };
-    
-    init();
-  }, []);
 
   const handleAppClick = (app: AppConfig) => {
     if (app.id === 'settings') {
@@ -87,8 +76,8 @@ const App: React.FC = () => {
     setActiveApp(null);
   };
 
-  const dockApps = APPS.filter(app => app.isDock);
-  const desktopApps = APPS.filter(app => !app.isDock);
+  const dockApps = apps.filter(app => app.isDock);
+  const desktopApps = apps.filter(app => !app.isDock);
 
   return (
     <Background isLoaded={isLoaded}>
@@ -128,6 +117,14 @@ const App: React.FC = () => {
         onClose={handleCloseBrowser}
       />
     </Background>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
   );
 };
 

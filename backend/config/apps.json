@@ -34,7 +34,7 @@
     "icon": "globe",
     "id": "browser",
     "isDock": true,
-    "name": "google",
+    "name": "Google",
     "requiresPassword": true,
     "url": "https://google.com",
     "useVPN": true
