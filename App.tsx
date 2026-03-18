@@ -46,6 +46,18 @@ const App: React.FC = () => {
             // Start auth flow
             setShowPasswordModal(true);
         }
+    } else if (app.id === 'note-app') {
+        // Special handling for note app
+        setActiveApp({...app, url: '#/note'});
+        // Check if the app requires password
+        const needsPassword = app.requiresPassword ?? false;
+        if (isAuthenticated || !needsPassword) {
+            // Already authenticated or app doesn't require password, skip password
+            setShowBrowser(true);
+        } else {
+            // Start auth flow
+            setShowPasswordModal(true);
+        }
     } else if (app.useVPN) {
         setActiveApp(app);
         // Check if the app requires password

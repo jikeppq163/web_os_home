@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@uiw/react-markdown-editor": "^6.1.4",
     "chinese-lunar-calendar": "^1.0.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.563.0",

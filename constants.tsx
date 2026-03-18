@@ -8,13 +8,14 @@ import {
   Image as ImageIcon,
   Settings,
   Terminal,
+  FileText,
 } from "lucide-react";
 import { AppConfig } from "./types";
 
 // 从后端 API 获取应用配置
 export const fetchApps = async (): Promise<AppConfig[]> => {
   try {
-    const response = await fetch('/ms_os_home/api/apps');
+    const response = await fetch('/api/apps');
     if (!response.ok) {
       throw new Error('Failed to fetch apps');
     }
@@ -45,6 +46,8 @@ const getIconComponent = (iconName: string): React.ReactNode => {
       return <Music color="white" size={32} />;
     case 'settings':
       return <Settings color="white" size={32} />;
+    case 'file-text':
+      return <FileText color="white" size={32} />;
     default:
       return <Terminal color="white" size={32} />;
   }
@@ -111,6 +114,16 @@ export const getDefaultApps = (): AppConfig[] => [
     isDock: true,
     useVPN: true,
     requiresPassword: true,
+  },
+  {
+    id: "note-app",
+    name: "记事本",
+    url: "#",
+    icon: <FileText color="white" size={32} />,
+    color: "from-green-400 to-green-600",
+    isDock: true,
+    useVPN: false,
+    requiresPassword: false,
   }
 ];
 
