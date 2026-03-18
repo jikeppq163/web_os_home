@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, ShieldCheck, RotateCw, Globe } from 'lucide-react';
 import { AppConfig } from '@/types';
+import Settings from '@/components/Settings';
 
 interface ProxyBrowserProps {
   isOpen: boolean;
@@ -49,32 +50,39 @@ const ProxyBrowser: React.FC<ProxyBrowserProps> = ({ isOpen, app, onClose }) => 
       {/* Content Area */}
       <div className="flex-1 relative bg-white overflow-hidden">
         {/* Loading / Placeholder State (Simulating Proxy) */}
-        {isLoading && (
+        {isLoading && app.url !== '#/setting' && (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-50 z-10 pointer-events-none">
                 <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin mb-4"></div>
                 <p className="text-slate-500 font-medium animate-pulse">Establishing Secure Tunnel...</p>
             </div>
         )}
         
-        {/* 
-           NOTE: Many major sites (GitHub, Google, Twitter) have X-Frame-Options: DENY headers.
-           They will refuse to connect in a real iframe. 
-           Since this is a frontend demo, we attempt to load it, but if it fails, it's expected behavior for a mock.
-           For a real app, you would need a server-side proxy to rewrite headers.
-        */}
-        <iframe 
-            src={app.url}
-            className="w-full h-full border-0"
-            onLoad={() => setIsLoading(false)}
-            sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
-            title="Proxy Content"
-        />
+        {/* Settings Page */}
+        {app.url === '#/setting' ? (
+            <Settings />
+        ) : (
+            <>
+                {/* 
+                   NOTE: Many major sites (GitHub, Google, Twitter) have X-Frame-Options: DENY headers.
+                   They will refuse to connect in a real iframe. 
+                   Since this is a frontend demo, we attempt to load it, but if it fails, it's expected behavior for a mock.
+                   For a real app, you would need a server-side proxy to rewrite headers.
+                */}
+                <iframe 
+                    src={app.url}
+                    className="w-full h-full border-0"
+                    onLoad={() => setIsLoading(false)}
+                    sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
+                    title="Proxy Content"
+                />
 
-        {/* Fallback visual if iframe refuses to connect (Common in demos) */}
-        <div className="absolute inset-0 -z-10 flex flex-col items-center justify-center text-slate-300">
-            <Globe size={64} className="mb-4 opacity-20" />
-            <p>Content Loading...</p>
-        </div>
+                {/* Fallback visual if iframe refuses to connect (Common in demos) */}
+                <div className="absolute inset-0 -z-10 flex flex-col items-center justify-center text-slate-300">
+                    <Globe size={64} className="mb-4 opacity-20" />
+                    <p>Content Loading...</p>
+                </div>
+            </>
+        )}
       </div>
     </div>
   );
