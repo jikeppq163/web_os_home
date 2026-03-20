@@ -1,53 +1,33 @@
 [
   {
-    "color": "from-orange-400 to-orange-600",
-    "icon": "calculator",
-    "id": "loan-calc",
-    "isDock": false,
-    "name": "贷款规划器",
-    "requiresPassword": false,
-    "url": "https://www.europlay.cn/AILoanCalculator/",
-    "useVPN": true
-  },
-  {
-    "color": "from-orange-400 to-orange-600",
-    "icon": "calculator",
-    "id": "open-claw-tools",
-    "isDock": false,
-    "name": "open claw",
-    "requiresPassword": false,
-    "url": "http://lobe.europlay.cn",
-    "useVPN": false
-  },
-  {
     "color": "from-gray-700 to-gray-900",
-    "icon": "github",
+    "icon": "globe",
     "id": "github",
-    "isDock": true,
-    "name": "GitHub",
-    "requiresPassword": true,
-    "url": "https://github.com",
+    "isDock": false,
+    "name": "陈春渠_9100",
+    "requiresPassword": false,
+    "url": "http://192.168.48.96:9100",
     "useVPN": false
   },
   {
     "color": "from-blue-400 to-blue-600",
     "icon": "globe",
     "id": "browser",
-    "isDock": true,
-    "name": "Google",
-    "requiresPassword": true,
-    "url": "https://google.com",
-    "useVPN": true
+    "isDock": false,
+    "name": "ubuntu_9101",
+    "requiresPassword": false,
+    "url": "http://192.168.48.96:9101",
+    "useVPN": false
   },
   {
     "color": "from-red-400 to-pink-600",
-    "icon": "music",
+    "icon": "globe",
     "id": "music",
     "isDock": false,
-    "name": "音乐",
+    "name": "ubuntu_kimi",
     "requiresPassword": false,
-    "url": "https://music.163.com/#/playlist?id=717848220",
-    "useVPN": true
+    "url": "http://192.168.48.96:5494",
+    "useVPN": false
   },
   {
     "color": "from-gray-400 to-gray-600",
@@ -65,8 +45,18 @@
     "id": "note-app",
     "isDock": true,
     "name": "记事本",
-    "requiresPassword": false,
+    "requiresPassword": true,
     "url": "#",
+    "useVPN": false
+  },
+  {
+    "color": "from-blue-400 to-blue-600",
+    "icon": "globe",
+    "id": "文件管理器",
+    "isDock": false,
+    "name": "主机文件夹",
+    "requiresPassword": false,
+    "url": "http://192.168.48.44:6060",
     "useVPN": false
   }
 ]

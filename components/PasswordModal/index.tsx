@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, ArrowRight } from 'lucide-react';
+import { Lock, ArrowRight, Loader2 } from 'lucide-react';
 
 interface PasswordModalProps {
   isOpen: boolean;
@@ -9,20 +9,43 @@ interface PasswordModalProps {
 
 const PasswordModal: React.FC<PasswordModalProps> = ({ isOpen, onSuccess, onCancel }) => {
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'ouyuan') {
-      setError(false);
-      setPassword('');
-      onSuccess();
-    } else {
-      setError(true);
+    setLoading(true);
+    setError('');
+    
+    try {
+      const response = await fetch('http://localhost:5100/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        // 存储Token到localStorage
+        localStorage.setItem('auth_token', data.token);
+        setPassword('');
+        onSuccess();
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Invalid password');
+        // Shake animation reset
+        setTimeout(() => setError(''), 1500);
+      }
+    } catch (err) {
+      setError('Failed to connect to server');
       // Shake animation reset
-      setTimeout(() => setError(false), 500);
+      setTimeout(() => setError(''), 1500);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,6 +62,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpen, onSuccess, onCanc
           <div className="text-center">
             <h2 className="text-xl font-bold text-slate-800">Security Check</h2>
             <p className="text-slate-500 text-sm mt-1">Enter password to access VPN</p>
+            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           </div>
 
           <form onSubmit={handleSubmit} className="w-full relative">
@@ -49,18 +73,21 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpen, onSuccess, onCanc
               placeholder="Password"
               className="w-full bg-slate-100 border-none rounded-xl px-4 py-3 text-center text-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-400"
               autoFocus
+              disabled={loading}
             />
             <button 
                 type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-blue-500 rounded-lg text-white hover:bg-blue-600 transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-blue-500 rounded-lg text-white hover:bg-blue-600 transition-colors disabled:bg-slate-400"
+                disabled={loading}
             >
-                <ArrowRight size={16} />
+                {loading ? <Loader2 size={16} className="animate-spin" /> : <ArrowRight size={16} />}
             </button>
           </form>
           
           <button 
             onClick={onCancel}
             className="text-slate-400 text-sm hover:text-slate-600 font-medium"
+            disabled={loading}
           >
             Cancel
           </button>

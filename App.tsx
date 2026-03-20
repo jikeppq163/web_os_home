@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StatusBar from '@/components/StatusBar';
 import Dock from '@/components/Dock';
 import Background from '@/components/Background';
@@ -8,15 +8,26 @@ import ProxyBrowser from '@/components/ProxyBrowser';
 import Settings from '@/components/Settings';
 import { AppProvider, useApp } from '@/src/AppContext';
 import { AppConfig } from '@/types';
+import { authService } from '@/src/services/authService';
 
 const AppContent: React.FC = () => {
   const { apps, isLoaded } = useApp();
   const [activeApp, setActiveApp] = useState<AppConfig | null>(null);
   
-  // Auth State - Lazy initialization from localStorage
+  // Auth State - Lazy initialization from authService
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('vpn_authorized') === 'true';
+    return authService.isAuthenticated();
   });
+
+  // Verify token on component mount
+  useEffect(() => {
+    const verifyAuth = async () => {
+      const valid = await authService.verifyToken();
+      setIsAuthenticated(valid);
+    };
+
+    verifyAuth();
+  }, []);
   
   // UI States
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -66,7 +77,6 @@ const AppContent: React.FC = () => {
 
   const handlePasswordSuccess = () => {
     setIsAuthenticated(true);
-    localStorage.setItem('vpn_authorized', 'true'); // Cache the auth state
     setShowPasswordModal(false);
     setShowBrowser(true);
   };

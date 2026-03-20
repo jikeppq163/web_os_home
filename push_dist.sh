@@ -202,10 +202,10 @@ push_to_server() {
         fi
     fi
     
-    # 推送整个 backend 文件夹
+    # 推送整个 backend 文件夹（忽略 data/notes 目录）
     if [ -d "$BACKEND_DIR" ]; then
         echo "=== 推送整个 backend 文件夹 ==="
-        rsync -avz --delete "$BACKEND_DIR/" "$CURRENT_SERVER:$CURRENT_SERVER_DIR/backend/"
+        rsync -avz --delete --exclude "data/notes/" "$BACKEND_DIR/" "$CURRENT_SERVER:$CURRENT_SERVER_DIR/backend/"
         
         # 检查推送是否成功
         if [ $? -ne 0 ]; then
