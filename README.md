@@ -1,8 +1,10 @@
 # My OS Home
 
-一个模拟操作系统风格的个人数字门户，将常用工具、外部链接和个人应用聚合在统一的桌面体验中。
+**服务器端个人桌面应用 / Server-side Personal Desktop Application**
 
-A personal digital portal that simulates an OS-style desktop experience, aggregating common tools, external links, and personal apps into a unified interface.
+部署在自有服务器上的个人数字工作台，让你在任何设备上都能快速访问自己的笔记、AI 小应用和常用网站。所有数据私有存储，密码保护 + 防爆破机制确保只有你自己能用。
+
+A personal digital workspace deployed on your own server, giving you quick access to your notes, AI mini-apps, and favorite websites from any device. All data is privately stored, with password protection and brute-force protection ensuring only you can access it.
 
 **在线体验 / Live Demo**：[https://www.europlay.cn/](https://www.europlay.cn/)
 
@@ -10,18 +12,43 @@ A personal digital portal that simulates an OS-style desktop experience, aggrega
 
 ---
 
+## 产品简介 / About
+
+### 这是什么？ / What is it?
+
+My OS Home 是一个部署在你自己服务器上的**个人桌面应用**。它模拟了经典操作系统的桌面体验，让你可以在浏览器中拥有一个统一的个人工作台。
+
+My OS Home is a **personal desktop application** deployed on your own server. It simulates a classic OS desktop experience, giving you a unified personal workspace right in your browser.
+
+### 核心用途 / Core Use Cases
+
+- **跨端信息存储** — 在任何设备上打开浏览器，就能访问你的笔记本、待办事项和个人数据，无需安装任何客户端
+  **Cross-device Information Storage** — Open your browser on any device to access your notes, to-dos, and personal data without installing any client
+- **个人应用聚合** — 将你用 AI 写的小应用、喜欢的网站、常用工具全部注册为桌面图标，一键打开
+  **Personal App Aggregation** — Register your AI-built mini-apps, favorite websites, and常用 tools as desktop icons for one-click access
+- **私有安全访问** — 密码认证 + IP 白名单 + 防爆破机制（5 次错误临时封禁 30 分钟，累计 3 次永久拉黑），确保只有你自己能用
+  **Private & Secure Access** — Password authentication + IP whitelist + brute-force protection (5 failed attempts = 30min lock, 3 locks = permanent ban), ensuring only you can access it
+- **代理浏览** — 内置代理浏览器，遇到被墙的网站可以直接通过服务器代理访问，无需额外配置
+  **Proxy Browsing** — Built-in proxy browser lets you access blocked websites directly through your server, no extra configuration needed
+- **AI 对话集成** — 可以将 AI 对话窗口作为应用安装到桌面上，通过代理浏览器直接使用
+  **AI Chat Integration** — Install AI chat windows as desktop apps and use them directly through the proxy browser
+
+---
+
 ## 核心特性 / Core Features
 
-- **OS 桌面隐喻** — 桌面图标、Dock 栏、状态栏、小部件，还原经典桌面体验
-  **OS Desktop Metaphor** — Desktop icons, Dock bar, status bar, and widgets recreating the classic desktop experience
-- **应用聚合** — 内置浏览器打开外部链接，支持密码保护的应用访问
-  **App Aggregation** — Built-in browser for external links, with password-protected app access
-- **记事本** — 轻量笔记功能，支持 Markdown 格式
-  **Notepad** — Lightweight note-taking with Markdown support
-- **动态应用配置** — 后端 API 管理桌面应用，无需重新构建前端
-  **Dynamic App Configuration** — Backend API manages desktop apps without rebuilding the frontend
+- **OS 桌面体验** — 桌面图标、Dock 栏、状态栏、小部件，还原经典桌面操作习惯
+  **OS Desktop Experience** — Desktop icons, Dock bar, status bar, and widgets recreating classic desktop habits
+- **跨端同步** — 部署在服务器上，手机、平板、电脑任何设备打开浏览器即用
+  **Cross-device Sync** — Deployed on a server, works on any device with a browser — phone, tablet, or computer
+- **记事本** — 轻量笔记功能，支持 Markdown 格式，随时记录灵感
+  **Notepad** — Lightweight note-taking with Markdown support, capture ideas anytime
+- **动态应用配置** — 后端 API 管理桌面应用，添加/删除应用无需重新构建前端
+  **Dynamic App Configuration** — Backend API manages desktop apps, add/remove apps without rebuilding the frontend
 - **安全防护** — Token 认证 + IP 白名单 + 防爆破机制（5 次错误临时封禁 30 分钟，累计 3 次封禁永久拉黑）
   **Security Protection** — Token authentication + IP whitelist + brute-force protection (5 failed attempts = 30min lock, 3 locks = permanent ban)
+- **代理浏览器** — 内置代理功能，可访问被墙网站，支持 AI 对话窗口集成
+  **Proxy Browser** — Built-in proxy for accessing blocked websites, supports AI chat window integration
 - **数据持久化** — SQLite 存储安全数据，重启不丢失
   **Data Persistence** — SQLite storage for security data, survives restarts
 
