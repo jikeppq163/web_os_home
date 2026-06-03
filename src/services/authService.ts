@@ -18,7 +18,7 @@ export const authService = {
     }
 
     try {
-      const response = await fetch('http://localhost:5100/api/auth/verify', {
+      const response = await fetch('/api/auth/verify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

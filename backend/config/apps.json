@@ -1,35 +1,5 @@
 [
   {
-    "color": "from-gray-700 to-gray-900",
-    "icon": "globe",
-    "id": "github",
-    "isDock": false,
-    "name": "陈春渠_9100",
-    "requiresPassword": false,
-    "url": "http://192.168.48.96:9100",
-    "useVPN": false
-  },
-  {
-    "color": "from-blue-400 to-blue-600",
-    "icon": "globe",
-    "id": "browser",
-    "isDock": false,
-    "name": "ubuntu_9101",
-    "requiresPassword": false,
-    "url": "http://192.168.48.96:9101",
-    "useVPN": false
-  },
-  {
-    "color": "from-red-400 to-pink-600",
-    "icon": "globe",
-    "id": "music",
-    "isDock": false,
-    "name": "ubuntu_kimi",
-    "requiresPassword": false,
-    "url": "http://192.168.48.96:5494",
-    "useVPN": false
-  },
-  {
     "color": "from-gray-400 to-gray-600",
     "icon": "settings",
     "id": "settings",
@@ -57,6 +27,16 @@
     "name": "主机文件夹",
     "requiresPassword": false,
     "url": "http://192.168.48.44:6060",
+    "useVPN": false
+  },
+  {
+    "color": "from-gray-400 to-gray-600",
+    "icon": "globe",
+    "id": "_copaw",
+    "isDock": false,
+    "name": "测试机_copaw",
+    "requiresPassword": false,
+    "url": "http://192.168.48.62:8088",
     "useVPN": false
   }
 ]
