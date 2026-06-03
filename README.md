@@ -4,6 +4,8 @@
 
 **在线体验**：[https://www.europlay.cn/](https://www.europlay.cn/)
 
+![My OS Home 预览](preview.jpg)
+
 ## 核心特性
 
 - **OS 桌面隐喻** — 桌面图标、Dock 栏、状态栏、小部件，还原经典桌面体验
