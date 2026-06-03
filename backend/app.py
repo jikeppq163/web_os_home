@@ -3,6 +3,8 @@ from flask_cors import CORS
 from app.routes.apps import apps_bp
 from app.routes.notes import notes_bp
 from app.routes.auth import auth_bp
+from app.routes.proxy_routes import proxy_bp
+from app.routes.ws_proxy import init_ws_proxy
 from app.db import init_db
 import os
 
@@ -16,6 +18,10 @@ init_db()
 app.register_blueprint(apps_bp, url_prefix='/api')
 app.register_blueprint(notes_bp, url_prefix='/api')
 app.register_blueprint(auth_bp, url_prefix='/api')
+app.register_blueprint(proxy_bp, url_prefix='/api')
+
+# Initialize WebSocket proxy
+init_ws_proxy(app)
 
 # 前端 dist 目录路径
 DIST_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'dist')
