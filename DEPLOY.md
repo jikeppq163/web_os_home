@@ -9,10 +9,10 @@
 | 项目 | 值 |
 |------|-----|
 | SSH 别名 | `GZ172` |
-| 部署目录 | `~/webos` |
-| PM2 进程名 | `webos` |
-| 后端目录 | `~/webos/api` |
-| 前端目录 | `~/webos/web` |
+| 部署目录 | `~/my-os-home` |
+| PM2 进程名 | `my-os-home` |
+| 后端目录 | `~/my-os-home/backend` |
+| 后端端口 | `5100` |
 
 ---
 
@@ -45,7 +45,7 @@ git push origin test
 ssh GZ172
 
 # 进入项目目录
-cd ~/webos
+cd ~/my-os-home
 
 # 拉取最新代码
 git fetch origin
@@ -57,16 +57,11 @@ git pull origin test
 
 ```bash
 # 检查后端依赖是否有变化
-cd ~/webos/api
+cd ~/my-os-home/backend
 cat requirements.txt
 
 # 如有新增依赖，安装
-pip install -r requirements.txt
-
-# 检查前端是否需要构建（如果是纯前端项目）
-cd ~/webos/web
-# npm install  # 如有新依赖
-# npm run build  # 如需构建
+pip3 install -r requirements.txt
 ```
 
 ### 4. 服务器：PM2 启动/重启服务
@@ -75,12 +70,12 @@ cd ~/webos/web
 # 检查现有 PM2 进程
 pm2 list
 
-# 如果 webos 进程已存在，重启
-pm2 restart webos
+# 如果 my-os-home 进程已存在，重启
+pm2 restart my-os-home
 
 # 如果是首次部署，启动服务
-cd ~/webos/api
-pm2 start app.py --name webos --interpreter python3
+cd ~/my-os-home/backend
+pm2 start app.py --name my-os-home --interpreter python3
 
 # 保存 PM2 配置
 pm2 save
@@ -90,13 +85,13 @@ pm2 save
 
 ```bash
 # 检查服务状态
-pm2 status webos
+pm2 status my-os-home
 
 # 查看日志确认启动成功
-pm2 logs webos --lines 20
+pm2 logs my-os-home --lines 20
 
 # 测试 API 是否响应
-curl -I http://localhost:PORT/api/apps
+curl -s http://localhost:5100/api/apps
 ```
 
 ---
@@ -122,13 +117,13 @@ git push origin $BRANCH
 
 # 服务器操作
 echo "[2/4] 服务器拉取代码..."
-ssh GZ172 "cd ~/webos && git checkout $BRANCH && git pull origin $BRANCH"
+ssh GZ172 "cd ~/my-os-home && git checkout $BRANCH && git pull origin $BRANCH"
 
 echo "[3/4] 检查依赖..."
-ssh GZ172 "cd ~/webos/api && pip install -r requirements.txt -q"
+ssh GZ172 "cd ~/my-os-home/backend && pip3 install -r requirements.txt -q"
 
 echo "[4/4] 重启服务..."
-ssh GZ172 "pm2 restart webos || (cd ~/webos/api && pm2 start app.py --name webos --interpreter python3)"
+ssh GZ172 "pm2 restart my-os-home || (cd ~/my-os-home/backend && pm2 start app.py --name my-os-home --interpreter python3)"
 ssh GZ172 "pm2 save"
 
 echo "=== 部署完成 ==="
@@ -158,5 +153,5 @@ chmod +x deploy.sh
 3. **回滚**：
    ```bash
    # 服务器回滚到上一版本
-   ssh GZ172 "cd ~/webos && git checkout HEAD~1 && pm2 restart webos"
+   ssh GZ172 "cd ~/my-os-home && git checkout HEAD~1 && pm2 restart my-os-home"
    ```
