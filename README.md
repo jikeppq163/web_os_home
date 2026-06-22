@@ -37,12 +37,14 @@ My OS Home is a **personal desktop application** deployed on your own server. It
 
 - **OS 桌面体验** — 桌面图标、Dock 栏、状态栏、小部件，还原经典桌面操作习惯
   **OS Desktop Experience** — Desktop icons, Dock bar, status bar, and widgets recreating classic desktop habits
+- **状态指示** — 状态栏显示服务器连接状态和密码锁定状态，应用图标显示锁定标记
+  **Status Indicators** — Status bar shows server connection and password lock status, app icons display lock badges
 - **跨端同步** — 部署在服务器上，手机、平板、电脑任何设备打开浏览器即用
   **Cross-device Sync** — Deployed on a server, works on any device with a browser — phone, tablet, or computer
 - **记事本** — 轻量笔记功能，支持 Markdown 格式，随时记录灵感
   **Notepad** — Lightweight note-taking with Markdown support, capture ideas anytime
-- **动态应用配置** — 后端 API 管理桌面应用，添加/删除应用无需重新构建前端
-  **Dynamic App Configuration** — Backend API manages desktop apps, add/remove apps without rebuilding the frontend
+- **动态应用配置** — 通过设置页面可视化管理桌面应用，支持图标选择器，添加/删除应用无需重新构建前端
+  **Dynamic App Configuration** — Visual app management via Settings page with icon picker, add/remove apps without rebuilding the frontend
 - **安全防护** — Token 认证 + IP 白名单 + 防爆破机制（5 次错误临时封禁 30 分钟，累计 3 次封禁永久拉黑）
   **Security Protection** — Token authentication + IP whitelist + brute-force protection (5 failed attempts = 30min lock, 3 locks = permanent ban)
 - **代理浏览器** — 内置代理功能，可访问被墙网站，支持 AI 对话窗口集成
