@@ -163,11 +163,29 @@ def get_brute_force_status(ip=None):
     # 全局状态
     blacklisted = conn.execute("SELECT ip, expire_at FROM ip_blacklist").fetchall()
     permanent_bans = [r['ip'] for r in blacklisted if r['expire_at'] is None]
+    temporary_bans = []
+    for r in blacklisted:
+        if r['expire_at'] is not None:
+            remaining = int(r['expire_at'] - time.time())
+            if remaining > 0:
+                temporary_bans.append({
+                    'ip': r['ip'],
+                    'remaining_seconds': remaining
+                })
+
+    # 获取当前有失败尝试记录的 IP 及其失败次数
+    attempting_rows = conn.execute(
+        "SELECT ip, COUNT(*) as cnt FROM brute_force_attempts GROUP BY ip"
+    ).fetchall()
+    attempting_ips = [{'ip': r['ip'], 'failures': r['cnt']} for r in attempting_rows]
+
     tracked = conn.execute("SELECT COUNT(DISTINCT ip) as cnt FROM brute_force_attempts").fetchone()
 
     return {
         'blacklisted_ips': [r['ip'] for r in blacklisted],
         'permanent_bans': permanent_bans,
+        'temporary_bans': temporary_bans,
+        'attempting_ips': attempting_ips,
         'total_tracked_ips': tracked['cnt'],
     }
 

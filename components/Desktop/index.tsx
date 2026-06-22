@@ -7,10 +7,11 @@ import { AppConfig } from '@/types';
 
 interface DesktopProps {
   desktopApps: AppConfig[];
+  isAuthenticated?: boolean;
   onAppClick: (app: AppConfig) => void;
 }
 
-const Desktop: React.FC<DesktopProps> = ({ desktopApps, onAppClick }) => {
+const Desktop: React.FC<DesktopProps> = ({ desktopApps, isAuthenticated = false, onAppClick }) => {
   return (
     <main className="absolute top-10 left-0 right-0 bottom-24 md:bottom-28 p-4 md:p-10 overflow-y-auto no-scrollbar touch-pan-y">
       <div className="max-w-6xl mx-auto pb-8">
@@ -32,7 +33,11 @@ const Desktop: React.FC<DesktopProps> = ({ desktopApps, onAppClick }) => {
               {/* Desktop Apps */}
               {desktopApps.map((app) => (
                   <div key={app.id} className="flex justify-center items-start pt-2">
-                      <AppIcon app={app} onClick={onAppClick} />
+                      <AppIcon
+                        app={app}
+                        isLocked={!!app.requiresPassword && !isAuthenticated}
+                        onClick={onAppClick}
+                      />
                   </div>
               ))}
           </div>

@@ -28,15 +28,5 @@
     "requiresPassword": false,
     "url": "http://192.168.48.44:6060",
     "useVPN": false
-  },
-  {
-    "color": "from-gray-400 to-gray-600",
-    "icon": "globe",
-    "id": "_copaw",
-    "isDock": false,
-    "name": "测试机_copaw",
-    "requiresPassword": false,
-    "url": "http://192.168.48.62:8088",
-    "useVPN": false
   }
 ]

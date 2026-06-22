@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Wifi, Battery, Signal, SignalHigh, SignalLow, SignalZero } from 'lucide-react';
+import { Wifi, Battery, Signal, SignalHigh, SignalLow, SignalZero, Lock, LockOpen } from 'lucide-react';
 import { format } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
 
-const StatusBar: React.FC = () => {
+interface StatusBarProps {
+  isAuthenticated?: boolean;
+}
+
+const StatusBar: React.FC<StatusBarProps> = ({ isAuthenticated = false }) => {
   const [time, setTime] = useState(new Date());
   const [isServerConnected, setIsServerConnected] = useState(true);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showLockTooltip, setShowLockTooltip] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -40,6 +45,26 @@ const StatusBar: React.FC = () => {
         <span>{format(time, 'h:mm a')}</span>
       </div>
       <div className="flex items-center gap-3">
+        {/* Password Lock Status */}
+        <div
+          className="relative"
+          onMouseEnter={() => setShowLockTooltip(true)}
+          onMouseLeave={() => setShowLockTooltip(false)}
+        >
+          {isAuthenticated ? (
+            <LockOpen size={15} className="text-green-300" />
+          ) : (
+            <Lock size={15} className="text-yellow-300" />
+          )}
+          {showLockTooltip && (
+            <div className="absolute right-0 top-full mt-2 px-3 py-1.5 bg-black/70 text-white text-xs rounded-md whitespace-nowrap shadow-lg z-50">
+              {isAuthenticated ? '已解锁' : '已锁定'}
+              <div className="absolute -top-1 right-2 w-2 h-2 bg-black/70 rotate-45"></div>
+            </div>
+          )}
+        </div>
+
+        {/* Server Connection Status */}
         <div
           className="relative"
           onMouseEnter={() => !isServerConnected && setShowTooltip(true)}

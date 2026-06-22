@@ -92,16 +92,17 @@ const AppContent: React.FC = () => {
   return (
     <Background isLoaded={isLoaded}>
       {/* Top Status Bar */}
-      <StatusBar />
+      <StatusBar isAuthenticated={isAuthenticated} />
 
       {/* Main Desktop Area */}
-      <Desktop 
-        desktopApps={desktopApps} 
-        onAppClick={handleAppClick} 
+      <Desktop
+        desktopApps={desktopApps}
+        isAuthenticated={isAuthenticated}
+        onAppClick={handleAppClick}
       />
 
       {/* Bottom Dock */}
-      <Dock apps={dockApps} onAppClick={handleAppClick} />
+      <Dock apps={dockApps} isAuthenticated={isAuthenticated} onAppClick={handleAppClick} />
       
       {/* Home Indicator */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/40 rounded-full z-50 pointer-events-none" />

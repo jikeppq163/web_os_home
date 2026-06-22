@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '@/src/AppContext';
 import { authService } from '@/src/services/authService';
 import ColorPicker from '@/components/ColorPicker';
+import IconPicker from '@/components/IconPicker';
 import { DEFAULT_COLOR } from '@/components/AppIcon';
+import { getIconComponent } from '@/constants';
 
 interface App {
   id: string;
@@ -41,6 +43,10 @@ const Settings: React.FC = () => {
   const [newIp, setNewIp] = useState('');
   const [password, setPassword] = useState('');
 
+  // 追踪初始应用列表，用于检测未保存变更
+  const initialAppsRef = useRef<App[]>([]);
+  const hasChanges = JSON.stringify(apps) !== JSON.stringify(initialAppsRef.current);
+
   // 加载应用配置
   useEffect(() => {
     const fetchApps = async () => {
@@ -51,6 +57,7 @@ const Settings: React.FC = () => {
         }
         const data = await response.json();
         setApps(data);
+        initialAppsRef.current = data;
         // 默认选中第一个非设置应用
         const firstEditableIndex = data.findIndex((app: App) => app.id !== 'settings');
         setSelectedAppIndex(firstEditableIndex >= 0 ? firstEditableIndex : 0);
@@ -108,6 +115,8 @@ const Settings: React.FC = () => {
 
       const data = await response.json();
       setSuccess(data.message || '配置更新成功');
+      // 更新初始状态，清除未保存提示
+      initialAppsRef.current = apps;
       // 重新加载应用配置，使首页更新
       await reloadApps();
     } catch (err) {
@@ -303,15 +312,29 @@ const Settings: React.FC = () => {
         {/* 页面标题 */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">应用设置</h1>
-          <button
-            onClick={() => {
-              setShowAddForm(!showAddForm);
-              if (showAddForm) setSelectedAppIndex(apps.length > 0 ? 0 : null);
-            }}
-            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-          >
-            {showAddForm ? '返回应用列表' : '新增应用'}
-          </button>
+          <div className="flex items-center gap-3">
+            {hasChanges && (
+              <span className="px-3 py-1.5 bg-orange-100 text-orange-700 text-sm font-medium rounded-md animate-pulse">
+                已变更，未保存
+              </span>
+            )}
+            <button
+              onClick={() => {
+                setShowAddForm(!showAddForm);
+                if (showAddForm) setSelectedAppIndex(apps.length > 0 ? 0 : null);
+              }}
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            >
+              {showAddForm ? '返回应用列表' : '新增应用'}
+            </button>
+            <button
+              onClick={handleUpdate}
+              disabled={isSaving || !hasChanges}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            >
+              {isSaving ? '保存中...' : '保存配置'}
+            </button>
+          </div>
         </div>
 
         {error && (
@@ -352,12 +375,10 @@ const Settings: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">图标</label>
-                <input
-                  type="text"
+                <IconPicker
                   value={newApp.icon}
-                  onChange={(e) => setNewApp({...newApp, icon: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onChange={(icon) => setNewApp({...newApp, icon})}
+                  label="图标"
                 />
               </div>
               <div className="md:col-span-2">
@@ -427,8 +448,8 @@ const Settings: React.FC = () => {
                         ${app.id === 'settings' ? 'opacity-75' : ''}
                       `}
                     >
-                      <div className={`w-10 h-10 rounded-lg bg-linear-to-br ${app.color} flex items-center justify-center text-white font-bold flex-shrink-0`}>
-                        {app.icon.charAt(0).toUpperCase()}
+                      <div className={`w-10 h-10 rounded-lg bg-linear-to-br ${app.color} flex items-center justify-center text-white flex-shrink-0`}>
+                        {getIconComponent(app.icon, 20, 'white')}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="font-medium text-gray-900 truncate">{app.name}</div>
@@ -447,8 +468,8 @@ const Settings: React.FC = () => {
                   {/* 应用头部信息 */}
                   <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
                     <div className="flex items-center gap-4">
-                      <div className={`w-16 h-16 rounded-2xl bg-linear-to-br ${selectedApp.color} flex items-center justify-center text-white font-bold text-2xl`}>
-                        {selectedApp.icon.charAt(0).toUpperCase()}
+                      <div className={`w-16 h-16 rounded-2xl bg-linear-to-br ${selectedApp.color} flex items-center justify-center text-white`}>
+                        {getIconComponent(selectedApp.icon, 32, 'white')}
                       </div>
                       <div>
                         <h2 className="text-2xl font-bold text-gray-900">{selectedApp.name}</h2>
@@ -488,12 +509,10 @@ const Settings: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">图标</label>
-                      <input
-                        type="text"
+                      <IconPicker
                         value={selectedApp.icon}
-                        onChange={(e) => handleAppChange(selectedAppIndex, 'icon', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        onChange={(icon) => handleAppChange(selectedAppIndex, 'icon', icon)}
+                        label="图标"
                       />
                     </div>
 
@@ -541,16 +560,6 @@ const Settings: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* 保存按钮 */}
-                  <div className="mt-8 pt-6 border-t border-gray-200">
-                    <button
-                      onClick={handleUpdate}
-                      disabled={isSaving}
-                      className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
-                    >
-                      {isSaving ? '保存中...' : '保存配置'}
-                    </button>
-                  </div>
                 </div>
               ) : (
                 <div className="bg-white rounded-lg shadow-md p-12 text-center">

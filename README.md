@@ -6,8 +6,6 @@
 
 A personal digital workspace deployed on your own server, giving you quick access to your notes, AI mini-apps, and favorite websites from any device. All data is privately stored, with password protection and brute-force protection ensuring only you can access it.
 
-**在线体验 / Live Demo**：[https://www.europlay.cn/](https://www.europlay.cn/)
-
 ![My OS Home 预览](preview.jpg)
 
 ---
@@ -96,6 +94,7 @@ my-os-home/
 ## 已配置应用 / Configured Apps
 
 ### 常用应用 / Common Apps
+
 - **贷款规划器 / Loan Planner**：个人财务规划工具 / Personal financial planning tool
 - **GitHub**：代码托管平台（支持密码保护）/ Code hosting platform (password-protected)
 - **Safari**：网络浏览器 / Web browser
@@ -110,40 +109,43 @@ my-os-home/
 ## 快速开始 / Quick Start
 
 ### 前提条件 / Prerequisites
+
 - **前端 / Frontend**：Node.js (v18+), npm 或 pnpm
 - **后端 / Backend**：Python 3.7+, pip
 
 ### 安装和运行 / Installation & Running
 
 #### 前端 / Frontend
+
 1. **克隆项目 / Clone the project**
+
    ```bash
    git clone <repository-url>
    cd my-os-home
    ```
-
 2. **安装前端依赖 / Install frontend dependencies**
+
    ```bash
    npm install
    # 或 / or
    pnpm install
    ```
-
 3. **启动前端开发服务器 / Start frontend dev server**
+
    ```bash
    npm run dev
    # 或 / or
    pnpm run dev
    ```
-
 4. **构建前端生产版本 / Build frontend production version**
+
    ```bash
    npm run build
    # 或 / or
    pnpm run build
    ```
-
 5. **预览前端生产构建 / Preview frontend production build**
+
    ```bash
    npm run preview
    # 或 / or
@@ -151,17 +153,19 @@ my-os-home/
    ```
 
 #### 后端 / Backend
+
 1. **进入后端目录 / Enter backend directory**
+
    ```bash
    cd backend
    ```
-
 2. **安装后端依赖 / Install backend dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
-
 3. **启动后端服务器 / Start backend server**
+
    ```bash
    python run.py
    ```
@@ -206,22 +210,24 @@ Widget configurations are in the `components/Widgets` directory. You can modify 
 ## 技术栈 / Tech Stack
 
 ### 前端 / Frontend
-| 技术 / Tech | 版本 / Version | 用途 / Purpose |
-|------|------|------|
-| React | 19.2.4 | 前端框架 / Frontend framework |
-| TypeScript | ~5.8.2 | 类型系统 / Type system |
-| Tailwind CSS | ^4.1.18 | CSS框架 / CSS framework |
-| Vite | ^6.2.0 | 构建工具 / Build tool |
-| Lucide React | ^0.563.0 | 图标库 / Icon library |
-| date-fns | ^4.1.0 | 日期处理 / Date handling |
+
+| 技术 / Tech  | 版本 / Version | 用途 / Purpose                |
+| ------------ | -------------- | ----------------------------- |
+| React        | 19.2.4         | 前端框架 / Frontend framework |
+| TypeScript   | ~5.8.2         | 类型系统 / Type system        |
+| Tailwind CSS | ^4.1.18        | CSS框架 / CSS framework       |
+| Vite         | ^6.2.0         | 构建工具 / Build tool         |
+| Lucide React | ^0.563.0       | 图标库 / Icon library         |
+| date-fns     | ^4.1.0         | 日期处理 / Date handling      |
 
 ### 后端 / Backend
-| 技术 / Tech | 用途 / Purpose |
-|------|------|
-| Python | 后端编程语言 / Backend programming language |
-| Flask | Web框架 / Web framework |
-| Flask-CORS | 处理跨域请求 / Handle cross-origin requests |
-| python-dotenv | 加载环境变量 / Load environment variables |
+
+| 技术 / Tech   | 用途 / Purpose                              |
+| ------------- | ------------------------------------------- |
+| Python        | 后端编程语言 / Backend programming language |
+| Flask         | Web框架 / Web framework                     |
+| Flask-CORS    | 处理跨域请求 / Handle cross-origin requests |
+| python-dotenv | 加载环境变量 / Load environment variables   |
 
 ---
 

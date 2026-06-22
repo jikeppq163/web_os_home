@@ -1,9 +1,11 @@
 import React from 'react';
+import { Lock } from 'lucide-react';
 import { AppConfig } from '@/types';
 
 interface AppIconProps {
   app: AppConfig;
   size?: 'normal' | 'large';
+  isLocked?: boolean;
   onClick?: (app: AppConfig) => void;
 }
 
@@ -50,7 +52,7 @@ const getValidColor = (color: string): string => {
   return DEFAULT_COLOR;
 };
 
-const AppIcon: React.FC<AppIconProps> = ({ app, size = 'normal', onClick }) => {
+const AppIcon: React.FC<AppIconProps> = ({ app, size = 'normal', isLocked = false, onClick }) => {
   const handleClick = () => {
     if (onClick) {
       onClick(app);
@@ -70,16 +72,23 @@ const AppIcon: React.FC<AppIconProps> = ({ app, size = 'normal', onClick }) => {
       onClick={handleClick}
       className="group flex flex-col items-center gap-2 transition-transform duration-200 active:scale-90 hover:scale-105 focus:outline-none"
     >
-      <div 
-        className={`${iconSizeClass} rounded-2xl md:rounded-3xl bg-linear-to-br ${colorClass} flex items-center justify-center shadow-lg shadow-black/20 group-hover:shadow-xl group-hover:brightness-110 transition-all duration-300 relative overflow-hidden`}
+      <div
+        className={`${iconSizeClass} rounded-2xl md:rounded-3xl bg-linear-to-br ${colorClass} flex items-center justify-center shadow-lg shadow-black/20 group-hover:shadow-xl group-hover:brightness-110 transition-all duration-300 relative overflow-hidden ${isLocked ? 'opacity-50 grayscale' : ''}`}
       >
         {/* Glossy Effect */}
         <div className="absolute top-0 left-0 w-full h-1/2 bg-linear-to-b from-white/20 to-transparent pointer-events-none" />
-        
+
         {/* Icon */}
         <div className="relative z-10 drop-shadow-md">
           {app.icon}
         </div>
+
+        {/* Lock Badge */}
+        {isLocked && (
+          <div className="absolute top-1 right-1 z-20 w-5 h-5 bg-black/60 rounded-full flex items-center justify-center">
+            <Lock size={11} className="text-yellow-300" />
+          </div>
+        )}
       </div>
       <span className={`${textSizeClass} font-medium text-white drop-shadow-md tracking-wide`}>
         {app.name}

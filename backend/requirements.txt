@@ -4,3 +4,4 @@ requests
 beautifulsoup4
 websocket-client
 flask-sock
+python-dotenv
