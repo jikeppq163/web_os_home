@@ -301,9 +301,9 @@ def test_app(url: str) -> dict:
         url: 应用地址，支持 local:端口 / http(s):// / /static_apps/...。
     """
     if url.startswith("/static_apps/"):
-        # 同源静态应用：检查文件是否存在
+        # 同源静态应用：检查文件是否存在（实际位于 backend/static_apps 下）
         rel = url.lstrip("/")
-        fp = OS_HOME_DIR / rel
+        fp = OS_HOME_DIR / "backend" / rel
         return {
             "ok": fp.exists(),
             "url": url,
