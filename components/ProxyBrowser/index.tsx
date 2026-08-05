@@ -27,6 +27,8 @@ const ProxyBrowser: React.FC<ProxyBrowserProps> = ({ isOpen, app, onClose }) => 
     if (!target) return '';
     // Already a proxy URL
     if (target.startsWith('/api/proxy/')) return target;
+    // Same-origin static app (deployed via os-home-mcp) — no proxy needed
+    if (target.startsWith('/static_apps/')) return target;
     // Build proxy URL
     return `/api/proxy/${encodeURIComponent(target)}`;
   }, []);
@@ -42,6 +44,9 @@ const ProxyBrowser: React.FC<ProxyBrowserProps> = ({ isOpen, app, onClose }) => 
     if (target.startsWith('local:')) {
       const rest = target.slice(6);
       resolvedUrl = `http://127.0.0.1/${rest}`;
+    } else if (target.startsWith('/static_apps/')) {
+      // Same-origin static app — load directly
+      resolvedUrl = target;
     } else if (!target.startsWith('http://') && !target.startsWith('https://') && !target.startsWith('/api/')) {
       resolvedUrl = `https://${target}`;
     }

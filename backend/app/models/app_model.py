@@ -43,9 +43,9 @@ class AppModel:
             return False
     
     def get_all(self):
-        """获取所有应用配置"""
-        return self.apps
+        """获取所有应用配置（实时从文件读取，支持被外部如 MCP 修改后即时生效）"""
+        return self._load_apps()
     
     def get_by_id(self, app_id):
-        """根据 ID 获取应用配置"""
-        return next((app for app in self.apps if app['id'] == app_id), None)
+        """根据 ID 获取应用配置（实时从文件读取）"""
+        return next((app for app in self._load_apps() if app['id'] == app_id), None)

@@ -1,0 +1,1 @@
+"""os_home_mcp — 让 AI Agent 把生成的应用一键注册进 My OS Home 桌面。"""

@@ -59,34 +59,39 @@ My OS Home is a **personal desktop application** deployed on your own server. It
 ```
 my-os-home/
 ├── components/           # 组件目录 / Components
-│   ├── AppIcon/          # 应用图标组件 / App icon component
+│   ├── AppIcon/          # 应用图标组件（含锁定标记）/ App icon component (with lock badge)
 │   ├── Background/       # 背景组件 / Background component
+│   ├── ColorPicker/      # 颜色选择器组件 / Color picker component
 │   ├── Desktop/          # 桌面组件 / Desktop component
 │   ├── Dock/             # Dock栏组件 / Dock bar component
+│   ├── IconPicker/       # 图标选择器组件 / Icon picker component
 │   ├── NoteApp/          # 记事本应用组件 / Notepad app component
 │   ├── PasswordModal/    # 密码模态框组件 / Password modal component
 │   ├── ProxyBrowser/     # 内置浏览器组件 / Built-in browser component
 │   ├── Settings/         # 设置应用组件 / Settings app component
-│   ├── StatusBar/        # 状态栏组件 / Status bar component
+│   ├── StatusBar/        # 状态栏组件（含状态指示）/ Status bar component (with status indicators)
 │   └── Widgets/          # 小部件组件 / Widget components
 │       ├── CalendarWidget/  # 日历小部件 / Calendar widget
 │       ├── ClockWidget/     # 时钟小部件 / Clock widget
 │       └── WeatherWidget/   # 天气小部件 / Weather widget
 ├── src/                  # 源代码目录 / Source code
-│   └── index.css         # 全局样式 / Global styles
+│   ├── index.css         # 全局样式 / Global styles
+│   ├── AppContext.tsx    # 应用上下文 / App context
+│   └── services/         # 服务层 / Services
+│       └── authService.ts # 认证服务 / Auth service
 ├── backend/              # 后端目录 / Backend
 │   ├── app/              # 后端应用 / Backend app
 │   │   ├── models/       # 数据模型 / Data models
 │   │   ├── routes/       # 路由 / Routes
 │   │   └── services/     # 业务逻辑 / Business logic
 │   ├── config/           # 配置文件 / Configuration
-│   ├── .env              # 环境变量 / Environment variables
+│   ├── data/             # 数据目录 / Data directory
 │   ├── app.py            # 后端主应用 / Main backend app
-│   ├── requirements.txt  # 后端依赖 / Backend dependencies
-│   └── run.py            # 后端启动文件 / Backend startup file
+│   └── requirements.txt  # 后端依赖 / Backend dependencies
 ├── App.tsx               # 应用主组件 / Main app component
-├── constants.tsx         # 应用配置常量 / App configuration constants
-── types.ts              # TypeScript类型定义 / TypeScript type definitions
+├── constants.tsx         # 应用配置常量（含图标列表）/ App config constants (with icon list)
+├── types.ts              # TypeScript类型定义 / TypeScript type definitions
+├── DEPLOY.md             # 部署指南 / Deployment guide
 ├── package.json          # 项目配置和依赖 / Project config and dependencies
 └── vite.config.ts        # Vite配置 / Vite configuration
 ```
@@ -95,16 +100,26 @@ my-os-home/
 
 ## 已配置应用 / Configured Apps
 
-### 常用应用 / Common Apps
+通过设置页面可以可视化管理应用，支持从 90+ 个图标中选择。
 
-- **贷款规划器 / Loan Planner**：个人财务规划工具 / Personal financial planning tool
-- **GitHub**：代码托管平台（支持密码保护）/ Code hosting platform (password-protected)
-- **Safari**：网络浏览器 / Web browser
-- **Mail**：邮件客户端 / Email client
-- **Photos**：图片浏览（链接到Unsplash）/ Photo browsing (links to Unsplash)
-- **音乐 / Music**：在线音乐播放器（链接到网易云音乐）/ Online music player (links to NetEase Cloud Music)
-- **Settings**：系统设置 / System settings
-- **Blog**：个人博客 / Personal blog
+### 默认应用 / Default Apps
+
+- **Settings**：系统设置，管理应用和 IP 白名单 / System settings, manage apps and IP whitelist
+- **记事本 / Notepad**：轻量笔记功能，支持 Markdown / Lightweight notes with Markdown support
+- **主机文件夹 / Host Files**：访问服务器文件管理器 / Access server file manager
+
+### 应用属性 / App Properties
+
+| 属性 | 说明 |
+|------|------|
+| `id` | 应用唯一标识符 |
+| `name` | 显示名称 |
+| `url` | 应用链接 |
+| `icon` | 图标名称（从图标列表选择）|
+| `color` | 颜色主题 |
+| `isDock` | 是否显示在 Dock 栏 |
+| `useVPN` | 是否使用内置浏览器打开 |
+| `requiresPassword` | 是否需要密码认证 |
 
 ---
 
@@ -169,7 +184,7 @@ my-os-home/
 3. **启动后端服务器 / Start backend server**
 
    ```bash
-   python run.py
+   python app.py
    ```
 
    后端服务器默认运行在 `http://localhost:5100`。
@@ -181,20 +196,23 @@ my-os-home/
 
 ### 添加新应用 / Add New Apps
 
-要添加新应用，只需在 `constants.tsx` 文件中的 `APPS` 数组中添加新的应用配置对象：
-To add a new app, simply add a new app configuration object to the `APPS` array in `constants.tsx`:
+通过设置页面可视化管理应用：
 
-```typescript
-{
-  id: 'app-id',           // 应用唯一标识符 / Unique app identifier
-  name: '应用名称',        // 应用显示名称 / Display name
-  url: 'https://example.com', // 应用链接 / App URL
-  icon: <IconComponent color="white" size={32} />, // 应用图标 / App icon
-  color: 'from-blue-400 to-blue-600', // 应用颜色主题 / App color theme
-  isDock: true,           // 是否显示在Dock栏 / Show in Dock bar
-  useVPN: false,          // 是否使用内置浏览器打开 / Use built-in browser
-  requiresPassword: false // 是否需要密码认证 / Require password authentication
-}
+1. 打开设置应用（需密码认证）
+2. 点击「新增应用」按钮
+3. 填写应用信息，从图标选择器中选择图标
+4. 点击「确认添加」，然后点击「保存配置」
+
+也可以通过后端 API 直接管理：
+
+```bash
+# 获取应用列表
+curl http://localhost:5100/api/apps
+
+# 更新应用配置
+curl -X PUT http://localhost:5100/api/apps \
+  -H "Content-Type: application/json" \
+  -d '[{"id":"app-id","name":"应用名称","url":"https://example.com","icon":"globe","color":"from-blue-400 to-blue-600","isDock":false,"useVPN":false,"requiresPassword":false}]'
 ```
 
 ### 自定义背景 / Custom Background
@@ -230,6 +248,17 @@ Widget configurations are in the `components/Widgets` directory. You can modify 
 | Flask         | Web框架 / Web framework                     |
 | Flask-CORS    | 处理跨域请求 / Handle cross-origin requests |
 | python-dotenv | 加载环境变量 / Load environment variables   |
+
+---
+
+## 部署 / Deployment
+
+详细的部署指南请参考 [DEPLOY.md](DEPLOY.md)，包含：
+
+- 服务器配置说明
+- Nginx 反向代理配置
+- PM2 进程管理
+- 一键部署脚本
 
 ---
 
